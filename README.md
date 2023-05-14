@@ -148,6 +148,27 @@ const blogSchema = Joi.object({
   }
 ```
 
+joi Validate กับข้อ Todo
+```javascript
+const schema = Joi.object({
+      title: Joi.string().required().messages({
+        'string.empty': 'ต้องกรอก title'
+      }),
+      description: Joi.string().required().messages({
+        'string.empty': 'ต้องกรอก description'
+      }),
+      due_date: Joi.date().iso(),
+    });
+  
+    const { value, error } = schema.validate(req.body);
+  
+    if (error) {
+      return res.status(400).json({
+        message: error.details[0].message,
+      });
+    }
+```
+
 middleware เช็คว่าเป็นเจ้าของมั้ย
 ```javascript
 const blogOwner = async (req, res, next) => {
